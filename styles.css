@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 *{
   margin: 0;
   padding: 0;
@@ -10,12 +11,18 @@
 html{
   background-color: #F5F5F5;
 }
+#header > header, #investment > article, #broker > article{
+  padding-left: 14px;
+  padding-right: 14px;
+  margin: auto;
+  max-width: 1072px;
+}
 .clear{
   clear:both;
 }
 #header{
   background-color: #CBECFF;
-  width: 100vw;
+  width: 100%;
   min-height: 678px;
   padding-top: 18px;
 }
@@ -23,10 +30,8 @@ header{
   background-image: url(/images/hand.png);
   background-repeat: no-repeat;
   background-position-x: 105%;
-  background-position-y: 44%;
+  background-position-y: 30px;
   min-height: 678px;
-  margin: auto;
-  max-width: 1100px;
 }
 #ru, #en {
   color: #29374E;
@@ -85,7 +90,7 @@ header > h1 > span{
   line-height: 140%;
 }
 .button:hover{
-  background: #FFFFFF;
+  background: #ffffff;
   color: #0962E8;
 }
 .button:active{
@@ -96,14 +101,14 @@ header > h1 > span{
   position: relative;
   top: 149px;
 }
-#header > header >  div.flex_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+#header > header >  div.grid_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   position: relative;
   top: 340px;
 }
-#header > header > div.flex_container > div {
+#header > header > div.grid_container > div {
   background-color: #fff;
   background-position-x: 94%;
   background-position-y: 21%;
@@ -113,27 +118,22 @@ header > h1 > span{
   height: 78px;
   padding: 25px;
   padding-right: 65px;
-  width: calc(100vw / 4 - 120px);
   background-size: 20%;
 }
-#header > header > div.flex_container >div:first-child{
+#header > header > div.grid_container >div:first-child{
   background-image: url(/images/Graph.png);
 }
-#header > header > div.flex_container > div:nth-child(2){
+#header > header > div.grid_container > div:nth-child(2){
   background-image: url(/images/Activity.png);
 }
-#header > header > div.flex_container > div:nth-child(3){
+#header > header > div.grid_container > div:nth-child(3){
   background-image: url(/images/Filter.png);
 }
-#header > header > div.flex_container >div:last-child{
+#header > header > div.grid_container >div:last-child{
   background-image: url(/images/Setting.png);
 }
 #investment{
   margin-top: 115px;
-}
-#investment > article{
-  margin: auto;
-  max-width: 1100px;
 }
 #investment > article > h2, #broker > article > div.grid_container > div > h2 {
   color: #29374E;
@@ -159,29 +159,27 @@ header > h1 > span{
 #investment > article > div.grid_container > div {
   color: #000;
   background: #E9F6FF;
-  background-position-x: 94%;
-  background-position-y: 150%;
+  background-position: bottom -8px right 30px;
   background-repeat: no-repeat;
+  background-size: 260px;
   border-radius: 30px;
   height: 328px;
   padding-left: 20px;
-  padding-right: 314px;
+  padding-right: 300px;
   padding-top: 34px;
 }
 #investment > article > div.grid_container > div:first-child {
   background-image: url(/images/strategies.png);
-  background-size: 50%;
 }
 #investment > article > div.grid_container > div:last-child {
   background-image: url(/images/theres_only.png);
-  background-size: 50%;
 }
-#investment > article > div.flex_container > div > h3{
+#investment > article > div.grid_container > div > h3{
   font-weight: 600;
   font-size: 20px;
   line-height: 140%;
 }
-#investment > article > div.flex_container > div > p{
+#investment > article > div.grid_container > div > p{
   font-size: 14px;
   font-weight: 400;
   line-height: 140%;
@@ -190,19 +188,14 @@ header > h1 > span{
   height: 750px;
 }
 #broker > article {
-  margin: auto;
   margin-top: 114px;
-  max-width: 1100px;
-}
-#broker > article > div.grid_container > div > h2 {
-
 }
 #broker > article > div.grid_container{
   display: grid;
-  gap: 100px;
+  gap: 50px;
   grid-template-areas:
-  "A A A    B B C C"
-  "A A A    D D E E";
+    "A A A A B B B C C C"
+    "A A A A D D D E E E";
 }
 #broker > article > div.grid_container > div.text{
   height: 140px;
@@ -218,7 +211,7 @@ header > h1 > span{
   margin-top: 33px;
 }
 #broker > article > div.grid_container > div:first-child > button{
-  margin-top: 95px;
+  margin-top: 60px;
 }
 #broker > article > div.grid_container > div:nth-child(2){
   grid-area: B;
@@ -231,4 +224,75 @@ header > h1 > span{
 }
 #broker > article > div.grid_container > div:last-child{
   grid-area: E;
+}
+
+@media (max-width: 1041px){
+  #header{
+    height: auto;
+  }
+  #header > header{
+    background-position-x: 50%;
+    background-size: 100%;
+    height: auto;
+  }
+  #header > header > h1 {
+    margin-top: 76vw;
+  }
+
+  #header > header:nth-child(1) > div:nth-child(5){
+    width: auto;
+  }
+  #header > header > button.button{
+    top: 120px;
+  }
+  .button {
+    width: 100%;
+  }
+  #header > header > div.grid_container{
+    margin-top: 150px;
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 40px;
+    position: unset;
+  }
+  #investment > article > h2 {
+    margin-top: -70px;
+  }
+  #investment > article > div.grid_container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  #investment > article > div.grid_container > div{
+    background-size: 165px;
+    height: 181px;
+    padding-right: 200px;
+  }
+  #investment > article >div.grid_container> div > h3{
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px){
+  #header > header > div.grid_container > div{
+    padding-right: 20px;
+  }
+  #broker > article > div.grid_container > div:first-child > h2 {
+    margin-top: -45px;
+    text-align: center;
+  }
+  #broker > article > div.grid_container{
+    grid-template-areas:
+      "A A A A" 
+      "B B C C"
+      "D D E E";
+    gap: 14px;
+  }
+  #broker > article > div.grid_container > div.panel{
+    background-color: #fff;
+    box-shadow: 6px 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    height: 134px;
+    padding: 15px;
+  }
+  #broker > article > div.grid_container > div:first-child{
+    height: auto;
+  }
 }
