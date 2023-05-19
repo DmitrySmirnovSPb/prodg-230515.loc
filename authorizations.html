@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Страница авторизации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="страница авторизации пользователя" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<body>
+    <div id = "auth">
+        <h2>Здравствуйте!<br>Пожалуйста авторизуйтесь.</h2>
+        <form name="authorizations" action="authorizations.php" method="post">
+            <div><label>Логин</label></div>
+            <div><input name="login" type="text"></div>
+            <div><label>Пароль</label></div>
+            <div><input name="password" type="text"></div>
+            <div><input name="button" type="button" value="Авторизоваться"></div>
+        </form>
+    </div>
+    <div id="user_card" class = "off">
+        <div>
+            <div id = "photo"></div>
+            <div id = "full_name"></div>
+        </div>
+    </div>
+</body>
+</html>

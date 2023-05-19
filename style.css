@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    margin: 0;
+    padding: 0;
+}
+.off{
+    display: none;
+}
+body{
+    background-color: #CBECFF;
+}
+#auth{
+    background-color: #FFF;
+    border-radius: 20px;
+    box-shadow: 6px 4px 12px rgba(3px, 3px, 0, 0.05);
+    margin: auto;
+    margin-top: 10vh;
+    padding: 35px;
+    width: calc(30vw - 70px);
+}
+#auth > h2 {
+    font-size: 150%;
+    font-weight: 700;
+    text-align: center;
+}
+#auth > form > p {
+    margin-top: 15px;
+}
