@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Страница авторизации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="страница авторизации пользователя" />
+	<meta name="keywords" content="" />
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<body>
+    <div id = "auth">
+        <h2>Здравствуйте!<br>Пожалуйста авторизуйтесь.</h2>
+        <p id = "error"><br></p>
+        <form name="auth" action="auth.php" method="post">
+            <div><label>Логин</label></div>
+            <div><input name="login" type="text"></div>
+            <div><label>Пароль</label></div>
+            <div><input name="password" type="password"></div>
+            <div><input name="button" type="button" value="Авторизоваться" id = "button"></div>
+        </form>
+    </div>
+    <div id="user_card" class = "off">
+        <div>
+            <div id = "photo"><img src="/user_photo/user.jpg" alt="photo_user"></div>
+            <h2 id = "full_name"><span>Иванов</span><br>Иван Иванович</h2>
+            <h3 id = "age">15.05.2000</h3>
+        </div>
+        <div id = "logout">Выйти</div>
+    </div>
+    <div id = "hello" class = "off">
+        <h2>Вы успешно аторизовались!</h2>
+        <p>Добро пожаловать!</p>
+    </div>
+</body>
+</html>
+<script>
+    var close_user_card = document.querySelector("#logout");
+    close_user_card.addEventListener("click",function(){
+        document.querySelector('#user_card').classList.add('off');
+    });
+    var auth_click = document.querySelector("#button");
+    auth_click.addEventListener("click",function(event){
+        const form = document.querySelector('[name="auth"]');
+        var login_user = form.querySelector('[name="login"]').value;
+        var password_user = form.querySelector('[name="password"]').value;
+// Создаем экземпляр класса XMLHttpRequest
+        const request = new XMLHttpRequest();
+// Указываем путь до файла на сервере, который будет обрабатывать наш запрос 
+        const url = "libs.php";
+// Так же как и в GET составляем строку с данными, но уже без пути к файлу 
+        const params = "login=" + login_user+ "&password_user=" + password_user + "&start=1";
+
+//	Здесь нужно указать в каком формате мы будем принимать данные вот и все	отличие 
+        request.responseType =	"json";
+        request.open("POST", url, true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        request.addEventListener("readystatechange", () => {
+            if (request.readyState === 4 && request.status === 200) {
+                let obj = request.response;
+                if(obj.result == true){
+                    alert('ds fdnjhbpjdfkbcm!');
+                }
+            }
+        });
+//	Вот здесь мы и передаем строку с данными, которую формировали выше. И собственно выполняем запрос. 
+        request.send(params);
+    });
+
+</script>
