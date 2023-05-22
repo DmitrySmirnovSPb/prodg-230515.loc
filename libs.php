@@ -50,6 +50,10 @@ class Auth_User{
         $login = mb_strtolower($login);
         $query = 'SELECT * FROM `users` WHERE `login` = "'.$login.'"';
         $success = $this->db->query($query);
+        if(!is_array($success)){
+            $this->data['result'] = 'no_data';
+            return false;
+        };
         if(!Counter::get_permission($success)){
             $this->data['result'] = 'forbidden';
             return false;
@@ -62,7 +66,6 @@ class Auth_User{
             $this->data['result'] = 'non_login';
             return false;
         }
-//        echo '<p>'.$password.'</p><p>'.$success['password'].'</p>';
         if($success['login'] !== $login || $success['password'] !== $password){
             $this->data['result'] = 'error_login';
             return false;
@@ -110,7 +113,7 @@ class Counter{
             $result = true;
         }
         else if($data['number'] >= 12 && $data['fine'] == 0) {
-            $query_array['fine'] = time() + 600;
+            $query_array['fine'] = time() + 720;
         }
         else if(time() > $data['fine']){
             $query_array['fine'] = 0;

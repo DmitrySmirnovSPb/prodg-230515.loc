@@ -35,9 +35,24 @@
 </body>
 </html>
 <script>
+    function set_error(text){
+        document.querySelector('#error').textContent = text;
+    }
+    function move_class(name,elt,f){
+        var id = '#' + elt;
+        var el = document.querySelector(id);
+        if(f == 'add'){
+            el.classList.add(name);
+        }
+        else {
+            el.classList.remove(name);
+        }
+    }
     var close_user_card = document.querySelector("#logout");
     close_user_card.addEventListener("click",function(){
-        document.querySelector('#user_card').classList.add('off');
+        move_class('off','user_card','add');
+        move_class('off','hello','add');
+        move_class('off','auth','remove');
     });
     var auth_click = document.querySelector("#button");
     auth_click.addEventListener("click",function(event){
@@ -60,7 +75,24 @@
             if (request.readyState === 4 && request.status === 200) {
                 let obj = request.response;
                 if(obj.result == true){
-                    alert('ds fdnjhbpjdfkbcm!');
+                    move_class('off','auth','add');
+                    move_class('off','user_card','remove');
+                    move_class('off','hello','remove');
+                    document.querySelector('#age').textContent = obj.h_d;
+                    document.querySelector('#full_name').innerHTML  = "<span></span><br>"+obj.f_name+" "+obj.m_name;
+                    document.querySelector('#full_name>span').textContent = obj.l_name;
+                    document.querySelector('#photo>img').setAttribute('src', "/user_photo/"+obj.photo)
+                    set_error("");
+                    setTimeout(() => { move_class('off','hello','add'); }, 10000);
+                }
+                if(obj.result == "forbidden"){
+                    set_error("Превышен лимит неудачных авторизаций!");
+                }
+                if(obj.result == "non_login" || obj.result == "error_login"){
+                    set_error("Не удачная попытка автроизоваться.");
+                }
+                if(obj.result == "no_data"){
+                    set_error("Логин не обнаружен");
                 }
             }
         });
