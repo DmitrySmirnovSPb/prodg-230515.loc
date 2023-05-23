@@ -47,42 +47,54 @@ class Auth_User{
     }
 
     public function auth($login, $password){
-        $login = mb_strtolower($login);
-        $query = 'SELECT * FROM `users` WHERE `login` = "'.$login.'"';
-        $success = $this->db->query($query);
-        if(!is_array($success)){
-            $this->data['result'] = 'no_data';
-            return false;
-        };
-        if(!Counter::get_permission($success)){
-            $this->data['result'] = 'forbidden';
-            return false;
+        if($login == '' || $password == ''){
+          if(isset($_COOKIE['cookie']) && is_int((int)$_COOKIE['cookie'])){
+            $query = 'SELECT * FROM `users` WHERE `id` = "'.$this->xxs($_COOKIE['cookie']).'"';
+            $success = $this->db->query($query);
+            if(is_array($success) && Counter::get_permission($success)) $this->ok($success);
+          }
         }
-        if(isset($this->data['cookie']) && $this->data['cookie'] === $this->data['id'])
-            $password = $this->data['cookie_password']??'';
-        else 
-            $password = md5($password);
-        if(!is_array($success) || count($success) == 0) {
-            $this->data['result'] = 'non_login';
-            return false;
+        else{
+          $login = mb_strtolower($login);
+          $query = 'SELECT * FROM `users` WHERE `login` = "'.$login.'"';
+          $success = $this->db->query($query);
+          if(!is_array($success)){
+              $this->data['result'] = 'no_data';
+              return false;
+          };
+          if(!Counter::get_permission($success)){
+              $this->data['result'] = 'forbidden';
+              return false;
+          }
+          if(isset($this->data['cookie']) && $this->data['cookie'] === $this->data['id'])
+              $password = $this->data['cookie_password']??'';
+          else 
+              $password = md5($password);
+          if(!is_array($success) || count($success) == 0) {
+              $this->data['result'] = 'non_login';
+              return false;
+          }
+          if($success['login'] !== $login || $success['password'] !== $password){
+              $this->data['result'] = 'error_login';
+              return false;
+          }
+          $this->ok($success);
         }
-        if($success['login'] !== $login || $success['password'] !== $password){
-            $this->data['result'] = 'error_login';
-            return false;
-        }
-        Counter::reset($success);
-        $this->set_cookie('cookie_password', $password);
-        $this->set_cookie('cookie', $success['id']);
+    }
+    
+    private function ok($data){
+        Counter::reset($data);
+        $this->set_cookie($data['login'], $data['password']);
+        $this->set_cookie('cookie', $data['id']);
 
         $this->data['result'] = true;
-        $this->data['f_name'] = $success['f_name'];
-        $this->data['l_name'] = $success['l_name'];
-        $this->data['m_name'] = $success['m_name'];
-        $this->data['h_d'] = $success['h_d'];
-        $this->data['photo'] = $success['photo'];
-
+        $this->data['f_name'] = $data['f_name'];
+        $this->data['l_name'] = $data['l_name'];
+        $this->data['m_name'] = $data['m_name'];
+        $this->data['h_d'] = $data['h_d'];
+        $this->data['photo'] = $data['photo'];
     }
-
+    
     private function set_cookie($name, $value){
         return setcookie(
             $name,

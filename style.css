@@ -120,3 +120,14 @@ body{
     font-size: 14px;
     text-align: center;
 }
+@media (max-width: 600px){
+    #hello{
+        width: calc(100% - 50px);
+        left: 0;
+    }
+}
+@media (max-width: 420px){
+    #photo > img {
+        width: calc(100% - 33px);
+    }
+}

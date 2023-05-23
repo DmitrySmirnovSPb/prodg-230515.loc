@@ -35,6 +35,9 @@
 </body>
 </html>
 <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        Loader(event)
+    });
     function set_error(text){
         document.querySelector('#error').textContent = text;
     }
@@ -53,9 +56,11 @@
         move_class('off','user_card','add');
         move_class('off','hello','add');
         move_class('off','auth','remove');
+        document.cookie = "cookie=;max-age=-1";
     });
-    var auth_click = document.querySelector("#button");
-    auth_click.addEventListener("click",function(event){
+    document.querySelector("#button").addEventListener("click", function(event){
+    Loader(event)});
+    function Loader(eventS){
         const form = document.querySelector('[name="auth"]');
         var login_user = form.querySelector('[name="login"]').value;
         var password_user = form.querySelector('[name="password"]').value;
@@ -98,6 +103,6 @@
         });
 //	Вот здесь мы и передаем строку с данными, которую формировали выше. И собственно выполняем запрос. 
         request.send(params);
-    });
+    }
 
 </script>
